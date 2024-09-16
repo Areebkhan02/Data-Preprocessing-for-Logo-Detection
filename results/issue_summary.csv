@@ -1,0 +1,10 @@
+,issue_type,num_images
+0,dark,0
+1,light,0
+2,odd_aspect_ratio,0
+3,low_information,0
+4,blurry,0
+5,grayscale,0
+6,odd_size,0
+7,exact_duplicates,0
+8,near_duplicates,0
