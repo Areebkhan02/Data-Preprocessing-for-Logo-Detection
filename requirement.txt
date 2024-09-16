@@ -1,0 +1,20 @@
+now I have an excel file with 2 columns:
+1) labels 
+2) file_name
+
+some examples are like this:
+35	5f8c8d4c0297181ab3e6910a_795.txt
+35	5f8c8d4c0297181ab3e6910a_491.txt
+29	63e2f78ed84f683605300887_423.txt
+29	63c9f491ca7224dec69376df_435.txt
+29	63a154c2066286f9f34e8c9a_175.txt
+
+now what I want is that I would give to the function
+1) images folder name 
+2) labels folder name 
+3) class label 
+4) number of images to delete 
+
+the script should see first like make a dictionary against the class label name which stores the names of the txts that are unique ( this information is in the excel file)
+then shuffles them randomly like alot then deletes the images from the labels folder and the images folder. The amount of images to delete user will give 
+
