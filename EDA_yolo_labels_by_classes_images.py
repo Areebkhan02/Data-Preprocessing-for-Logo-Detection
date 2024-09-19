@@ -87,6 +87,6 @@ def process_labels(labels_folder, output_image_path):
 
 if __name__ == "__main__":
     # Example usage
-    labels_folder = 'Datasets/47_logos_dataset/10_classes_final/final/split/train/combined_aug_org/labels'
-    output_image_path = 'Datasets/47_logos_dataset/10_classes_final/final/split/train/combined_aug_org/total_images_instances.png'
+    labels_folder = 'Datasets/3heads_merged_dataset/47_37_val_logos_dataset/labels'
+    output_image_path = '/home/areebadnan/Areeb_code/work/Atheritia/Datasets/3heads_merged_dataset/47_37_val_logos_dataset/issue_checking/total_images_instances.png'
     process_labels(labels_folder, output_image_path)

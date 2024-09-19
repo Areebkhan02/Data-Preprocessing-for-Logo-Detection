@@ -39,6 +39,6 @@ def find_unique_labels(labels_folder):
 
 if __name__ == "__main__":
     # Example usage
-    labels_folder = 'Datasets/47_logos_dataset/10_classes_final/final/split/train/combined_aug_org/labels'
+    labels_folder = 'Datasets/3heads_merged_dataset/47_37_val_logos_dataset/labels'
     unique_labels = find_unique_labels(labels_folder)
     print(f"Unique labels in ascending order: {unique_labels}")
