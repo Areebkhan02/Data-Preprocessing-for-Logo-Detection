@@ -8,14 +8,14 @@ from tqdm import tqdm
 
 
 # Define the folder paths
-video_folder = 'videos'
-image_folder = 'images'
+video_folder = '/home/areebadnan/Areeb_code/work/Visua_Data/videos/videos_test'
+image_folder = '/home/areebadnan/Areeb_code/work/Visua_Data/videos/images_test'
 
 # Create the annotation folder if it doesn't exist
-annotation_folder = 'annotation_with_classes'
+annotation_folder = '/home/areebadnan/Areeb_code/work/Atheritia/Scripts/Data-Preprocessing-for-Logo-Detection/visua_annotations/annotation_folder'
 
 
-json_folder = 'json_files'
+json_folder = '/home/areebadnan/Areeb_code/work/Atheritia/Scripts/Data-Preprocessing-for-Logo-Detection/visua_annotations/jsons'
 
 # Dictionary to store the logo to class mapping
 logo_to_class_mapping = {}
@@ -80,7 +80,9 @@ def process_video(video_file, json_data):
             medium = item.get('medium')
             start_time = item.get("start")
             end_time = item.get("end")
-            logo = item.get('brandName')
+            logo_part1 = item.get('brandName')
+            logo_part2 = str(item.get('logoId'))
+            logo = logo_part1 + "_" + logo_part2
             
             if video_name == medium:
                 start_frame = time_to_frame(start_time, fps)
