@@ -97,11 +97,11 @@ def process_video(video_file, json_data):
                 for frame_number in range(start_frame, end_frame):
 
 
-                                # Check if the current frame number should be skipped
-                    skip = any(frame_number % interval == 0 for interval in skip_intervals)
+                    #             # Check if the current frame number should be skipped
+                    # skip = any(frame_number % interval == 0 for interval in skip_intervals)
 
-                    if skip:
-                        continue  # Skip this frame
+                    # if skip:
+                    #     continue  # Skip this frame
 
                     # # Skip every 5th frame (you can customize the condition as needed)
                     # if frame_number % 2 == 0:
