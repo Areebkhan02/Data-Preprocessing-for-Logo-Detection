@@ -21,6 +21,7 @@ json_folder = '/home/areebadnan/Areeb_code/work/Atheritia/Scripts/Data-Preproces
 logo_to_class_mapping = {}
 
 skip_intervals = [2, 3, 4, 5, 6] # Skip every 2nd, 3rd, 4th, 5th, and 6th frame
+logo_ids = ['210608','32409']
 
 # skip_intervals = [i for i in range(1, 6)]
 
@@ -83,71 +84,73 @@ def process_video(video_file, json_data):
             logo_part1 = item.get('brandName')
             logo_part2 = str(item.get('logoId'))
             logo = logo_part1 + "_" + logo_part2
+
+            if logo_part2 in logo_ids:
             
-            if video_name == medium:
-                start_frame = time_to_frame(start_time, fps)
-                end_frame = time_to_frame(end_time, fps)
-                coordinates = item.get("coordinates")
-                cout_bbox += len(coordinates)
+                if video_name == medium:
+                    start_frame = time_to_frame(start_time, fps)
+                    end_frame = time_to_frame(end_time, fps)
+                    coordinates = item.get("coordinates")
+                    cout_bbox += len(coordinates)
 
-                # Assign a unique class number if the logo hasn't been encountered yet
-                if logo not in logo_to_class_mapping:
-                    logo_to_class_mapping[logo] = len(logo_to_class_mapping)
+                    # Assign a unique class number if the logo hasn't been encountered yet
+                    if logo not in logo_to_class_mapping:
+                        logo_to_class_mapping[logo] = len(logo_to_class_mapping)
 
-                class_id = logo_to_class_mapping[logo]
+                    class_id = logo_to_class_mapping[logo]
 
-                for frame_number in range(start_frame, end_frame):
+                    for frame_number in range(start_frame, end_frame):
 
 
-                    #             # Check if the current frame number should be skipped
-                    # skip = any(frame_number % interval == 0 for interval in skip_intervals)
+                        #             # Check if the current frame number should be skipped
+                        # skip = any(frame_number % interval == 0 for interval in skip_intervals)
 
-                    # if skip:
-                    #     continue  # Skip this frame
+                        # if skip:
+                        #     continue  # Skip this frame
 
-                    # # Skip every 5th frame (you can customize the condition as needed)
-                    # if frame_number % 2 == 0:
-                    #     continue  # Skip this frame
+                        # # Skip every 5th frame (you can customize the condition as needed)
+                        # if frame_number % 2 == 0:
+                        #     continue  # Skip this frame
 
-                    annotation_filename = f"{video_name}_{frame_number}.txt"
-                    annotation_filepath = os.path.join(annotation_folder, annotation_filename)
-                    yolo_coordinates = convert_to_yolo(coordinates[frame_number - start_frame], width, height, class_id)
-                    with open(annotation_filepath, 'a') as annotation_file:
-                        annotation_file.write(yolo_coordinates)
+                        annotation_filename = f"{video_name}_{frame_number}.txt"
+                        annotation_filepath = os.path.join(annotation_folder, annotation_filename)
+                        yolo_coordinates = convert_to_yolo(coordinates[frame_number - start_frame], width, height, class_id)
+                        with open(annotation_filepath, 'a') as annotation_file:
+                            annotation_file.write(yolo_coordinates)
 
     print("Video processing finished")
     print('Total Bounding Boxes:', cout_bbox)
 
-def process_image(image_file, json_data):
-    print(f"Processing image {image_file}\n")
-    image_path = os.path.join(image_folder, image_file)
-    image = cv2.imread(image_path)
-    height, width, _ = image.shape
-    image_name = image_file.split('.')[0]
+# def process_image(image_file, json_data):
+#     print(f"Processing image {image_file}\n")
+#     image_path = os.path.join(image_folder, image_file)
+#     image = cv2.imread(image_path)
+#     height, width, _ = image.shape
+#     image_name = image_file.split('.')[0]
     
-    for json_file in json_data:
-        data = json_data[json_file]
-        for idx, item in enumerate(data):
-            medium = item.get('medium')
-            logo = item.get('brandName')
+#     for json_file in json_data:
+#         data = json_data[json_file]
+#         for idx, item in enumerate(data):
+#             medium = item.get('medium')
+#             logo = item.get('brandName')
 
-            if medium == image_name:
-                coordinates = item.get("coordinates")
+#             if medium == image_name:
+#                 coordinates = item.get("coordinates")
 
-                # Assign a unique class number if the logo hasn't been encountered yet
-                if logo not in logo_to_class_mapping:
-                    logo_to_class_mapping[logo] = len(logo_to_class_mapping)
+#                 # Assign a unique class number if the logo hasn't been encountered yet
+#                 if logo not in logo_to_class_mapping:
+#                     logo_to_class_mapping[logo] = len(logo_to_class_mapping)
 
-                class_id = logo_to_class_mapping[logo]
+#                 class_id = logo_to_class_mapping[logo]
 
-                yolo_coordinates = convert_to_yolo(coordinates[0], width, height, class_id)
-                annotation_filename = f"{image_name}.txt"
-                annotation_filepath = os.path.join(annotation_folder, annotation_filename)
+#                 yolo_coordinates = convert_to_yolo(coordinates[0], width, height, class_id)
+#                 annotation_filename = f"{image_name}.txt"
+#                 annotation_filepath = os.path.join(annotation_folder, annotation_filename)
                 
-                with open(annotation_filepath, 'a') as annotation_file:
-                    annotation_file.write(yolo_coordinates)
+#                 with open(annotation_filepath, 'a') as annotation_file:
+#                     annotation_file.write(yolo_coordinates)
 
-    print("Image processing finished")
+#     print("Image processing finished")
 
 # Create the annotation folder if it doesn't exist
 os.makedirs(annotation_folder, exist_ok=True)
